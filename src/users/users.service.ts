@@ -45,4 +45,12 @@ export class UsersService {
     Object.assign(user, attrs); //* copyWith 같은 거.   ... 반환값이 있는데, 얕은 복사로 새 값 넣어져서 새 인스턴스로 만들지 않아도 되나보넹
     return this.repo.save(user);
   }
+
+  async remove(id: number) {
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new Error('uesr not found');
+    }
+    return this.repo.remove(user);
+  }
 }
