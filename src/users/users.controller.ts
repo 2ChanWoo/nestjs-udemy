@@ -1,4 +1,12 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateUestDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 
@@ -9,5 +17,21 @@ export class UsersController {
   createUser(@Body() body: CreateUestDto) {
     console.log(body);
     this.usersService.create(body.email, body.password);
+  }
+
+  @Get('/:id')
+  findUser(@Param('id') id: string) {
+    return this.usersService.findOne(parseInt(id));
+  }
+
+  @Get()
+  findAllUsers(@Query('email') email: string) {
+    return this.usersService.find(email);
+  }
+
+  @Delete('/:id')
+  deleteUser(@Param('id') id: number) {
+    //? 난 number로 받아도 잘 형 변환 되등데
+    return this.usersService.remove(id);
   }
 }
