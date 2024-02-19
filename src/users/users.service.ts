@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -40,7 +41,9 @@ export class UsersService {
   async update(id: number, attrs: Partial<User>) {
     const user = await this.findOne(id);
     if (!user) {
-      throw new Error('uesr not found');
+      throw new NotFoundException('uesr not found');
+      //! 본래 Error handling은 controller 에서 하는 것이 맞다고 함(controller/findone 에서 한 것 처럼.).(note)
+      //! 하지만 여기 update, delete 는 조금 challenge 해서 그냥 이렇게 했다고..
     }
     Object.assign(user, attrs); //* copyWith 같은 거.   ... 반환값이 있는데, 얕은 복사로 새 값 넣어져서 새 인스턴스로 만들지 않아도 되나보넹
     return this.repo.save(user);
@@ -49,7 +52,7 @@ export class UsersService {
   async remove(id: number) {
     const user = await this.findOne(id);
     if (!user) {
-      throw new Error('uesr not found');
+      throw new NotFoundException('uesr not found');
     }
     return this.repo.remove(user);
   }
