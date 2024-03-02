@@ -1,4 +1,3 @@
-import { Exclude } from 'class-transformer';
 import {
   Entity,
   Column,
@@ -17,10 +16,9 @@ export class User {
   email: string;
 
   @Column()
-  @Exclude() // has toClassOnly & toPlainOnly options.
   password: string;
 
-  @AfterInsert()  //* 근데... service의 create() 직후 로그보다는 느리게 발생함.
+  @AfterInsert() //* 근데... service의 create() 직후 로그보다는 느리게 발생함.
   logInsert() {
     console.log('Inserted User with id', this.id);
   }
