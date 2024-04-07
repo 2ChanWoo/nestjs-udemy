@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  Session,
 } from '@nestjs/common';
 import { CreateUestDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
@@ -24,15 +25,19 @@ export class UsersController {
     private authService: AuthService,
   ) {}
   @Post('/signup')
-  createUser(@Body() body: CreateUestDto) {
+  async createUser(@Body() body: CreateUestDto, @Session() session: any) {
     console.log(body);
-    return this.authService.signup(body.email, body.password);
+    const user = await this.authService.signup(body.email, body.password);
+    session.userId = user.id;
+    return user;
   }
 
   @Post('/signin')
-  signin(@Body() body: CreateUestDto) {
+  async signin(@Body() body: CreateUestDto, @Session() session: any) {
     console.log(body);
-    return this.authService.signin(body.email, body.password);
+    const user = await this.authService.signin(body.email, body.password);
+    session.userId = user.id;
+    return user;
   }
 
   @Get('/:id')

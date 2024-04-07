@@ -1,9 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import * as session from 'express-session'; //! 왜 이건 돼고
+//! import session from 'express-session'; 이건 안돼는거냐구....
+//? 중괄호 없이는 default export 만?? 
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(
+    session({
+      secret: 'my-secret',
+      resave: false,
+      saveUninitialized: false,
+      // cookie: {secure: true} //? https://docs.nestjs.com/techniques/session
+    }),
+  );
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

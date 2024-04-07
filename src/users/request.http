@@ -7,7 +7,7 @@ content-type: application/json
     "password": "asdf"
 }
 
-### sognin
+### signin
 POST http://localhost:3000/auth/signin
 content-type: application/json
 
