@@ -27,6 +27,9 @@ export class UsersService {
     // return this.repo.create({ email, password });
   }
   findOne(id: number) {
+    if (!id) {
+      return null;
+    }
     return this.repo.findOneBy({ id });
     // Finds first entity that matches given where condition. If entity was not found in the database - returns null.
   }
