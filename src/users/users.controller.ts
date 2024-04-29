@@ -10,7 +10,6 @@ import {
   Query,
   Session,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { CreateUestDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
