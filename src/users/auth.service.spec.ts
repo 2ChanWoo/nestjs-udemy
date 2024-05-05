@@ -3,15 +3,17 @@ import { Test } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
+import { BadRequestException } from '@nestjs/common';
 
 //* You can dramatically speed up your tests by updating the package.json file
 //* "test:watch": "jest --watch --maxWorkers=1",
 
 describe('AuthService', () => {
   let service: AuthService;
+  let fakeUsersService: Partial<UsersService>;
 
   beforeEach(async () => {
-    const fakeUsersService: Partial<UsersService> = {
+    fakeUsersService = {
       find: () => Promise.resolve([]),
       create: (email: string, password: string) =>
         Promise.resolve({ id: 1, email, password } as User),
@@ -46,5 +48,14 @@ describe('AuthService', () => {
     const [salt, hash] = user.password.split('.');
     expect(salt).toBeDefined();
     expect(hash).toBeDefined();
+  });
+
+  it('throws an error if user signs up with email that is in use', async () => {
+    fakeUsersService.find = () =>
+      Promise.resolve([{ id: 1, email: '1', password: '1' } as User]);
+
+    await expect(service.signup('asdf@asdf.com', 'asdf')).rejects.toThrow(
+      BadRequestException,
+    );
   });
 });
