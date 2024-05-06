@@ -12,8 +12,9 @@ describe('AuthService', () => {
   let service: AuthService;
   let fakeUsersService: Partial<UsersService>;
 
+  //* 모든 it() function 이전에 시작됨.
   beforeEach(async () => {
-    const users: User[] = [];
+    const users: User[] = []; //* 메모리에 저장되어 재사용할 수 있게끔.
     fakeUsersService = {
       find: (email: string) => {
         const filteredUsers = users.filter((user) => user.email === email);
@@ -62,8 +63,7 @@ describe('AuthService', () => {
   });
 
   it('throws an error if user signs up with email that is in use', async () => {
-    fakeUsersService.find = () =>
-      Promise.resolve([{ id: 1, email: '1', password: '1' } as User]);
+    await service.signup('asdf@asdf.com', 'asdf');
 
     await expect(service.signup('asdf@asdf.com', 'asdf')).rejects.toThrow(
       BadRequestException,
@@ -77,10 +77,8 @@ describe('AuthService', () => {
   });
 
   it('throws if an invalid password is provided', async () => {
-    fakeUsersService.find = () =>
-      Promise.resolve([
-        { email: 'asdf@asdf.com', password: 'laskdjf' } as User,
-      ]);
+    await service.signup('laskdjf@alskdfj.com', 'laskdjf');
+
     await expect(
       service.signin('laskdjf@alskdfj.com', 'passowrd'),
     ).rejects.toThrow(BadRequestException);
