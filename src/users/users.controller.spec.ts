@@ -29,7 +29,9 @@ describe('UsersController', () => {
     };
     fakeAuthService = {
       // signup: () => {},
-      // signin: () => {},
+      signin: (email: string, password: string) => {
+        return Promise.resolve({ id: 1, email, password } as User);
+      },
     };
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
@@ -70,5 +72,15 @@ describe('UsersController', () => {
     //? 내가한거.. it의 콜백함수에서는 에러가 안터지나?
     //? 왜 에러가 안터지지?
     // expect(controller.findUser('1')).rejects.toThrow(NotFoundException);
+  });
+
+  it('signin updates session object and returns user', async () => {
+    const session = { userId: 99 };
+    const user = await controller.signin(
+      { email: 'user@example.com', password: 'password' },
+      session,
+    );
+    expect(user.id).toEqual(1); // 위에 fakeAuthService 에서 하드코딩된 값.
+    expect(session.userId).toEqual(1);
   });
 });
