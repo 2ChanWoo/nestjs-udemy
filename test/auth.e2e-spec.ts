@@ -48,7 +48,7 @@ describe('Authentication System', () => {
     console.log(cookie);
 
     const { body } = await request(app.getHttpServer())
-      .get('auth/whoami')
+      .get('/auth/whoami')
       .set('Cookie', cookie)
       .expect(200);
 
