@@ -8,8 +8,10 @@ import { ReportsModule } from './reports/reports.module';
 import { User } from './users/user.entity';
 import { Report } from './reports/report.entity';
 import { APP_PIPE } from '@nestjs/core';
-import * as session from 'express-session'; //! 왜 이건 돼고
+const cookieSession = require('cookie-session');
+// import * as session from 'express-session'; //! 왜 이건 돼고
 //! import session from 'express-session'; 이건 안돼는거냐구....
+//* cookie-session VS express-session :: https://stackoverflow.com/questions/23566555/whats-the-difference-between-express-session-and-cookie-session
 //? 중괄호 없이는 default export 만??
 
 @Module({
@@ -59,12 +61,15 @@ export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(
-        session({
-          secret: 'my-secret',
-          resave: false,
-          saveUninitialized: false,
-          // cookie: {secure: true} //? https://docs.nestjs.com/techniques/session
+        cookieSession({
+          keys: ['asdfasfd'],
         }),
+        // session({
+        //   secret: 'my-secret',
+        //   resave: false,
+        //   saveUninitialized: false,
+        //   // cookie: {secure: true} //? https://docs.nestjs.com/techniques/session
+        // }),
       )
       .forRoutes('*');
   }
