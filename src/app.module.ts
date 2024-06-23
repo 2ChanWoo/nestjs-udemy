@@ -9,6 +9,8 @@ import { User } from './users/user.entity';
 import { Report } from './reports/report.entity';
 import { APP_PIPE } from '@nestjs/core';
 const cookieSession = require('cookie-session');
+//* ㄴ> cookie session이 최신식 import에서는 내부적인 동작 오류가 있다?
+
 // import * as session from 'express-session'; //! 왜 이건 돼고
 //! import session from 'express-session'; 이건 안돼는거냐구....
 //* cookie-session VS express-session :: https://stackoverflow.com/questions/23566555/whats-the-difference-between-express-session-and-cookie-session

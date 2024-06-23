@@ -43,8 +43,6 @@ describe('Authentication System', () => {
       .expect(201);
 
     const cookie = res.get('Set-Cookie');
-    console.log('test test test');
-    // console.log(res);
     console.log(cookie);
 
     const { body } = await request(app.getHttpServer())
