@@ -1,0 +1,12 @@
+POST http://localhost:3000/reports
+content-type: application/json
+
+{
+    "make": "hyundai",
+    "model": "sonata",
+    "year": 2010,
+    "mileage": 10000,
+    "lng": 0,
+    "lat": 0,
+    "price": 50000
+}
