@@ -11,7 +11,7 @@ export class ReportsService {
 
   create(reportDto: CreateReportDto, user: User) {
     const report = this.repo.create(reportDto);
-    report.user = user; //* user.id 만 넣는게 아님. TypeORM 에서 설정한대로 User인스턴스에서 id만 추출해 넣음.
-    return this.repo.save(report);
+    report.user = user; //* user.id 만 넣는게 아님. TypeORM 에서 설정한대로 User인스턴스에서 id만 추출해 넣음(디비에 저장할 때).
+    return this.repo.save(report); //* 근데 또, 반환은 유저정보 전부(패스워드 포함) 반환(응답)됨. 그래서 직렬화 해 줘야 함.
   }
 }
