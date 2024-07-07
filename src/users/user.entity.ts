@@ -20,6 +20,10 @@ export class User {
   @Column()
   password: string;
 
+  //* 테스트용 임시 true
+  @Column({ default: true })
+  admin: boolean;
+
   /*
    * [OneToMany] 의 첫번째 파라미터에 굳이 타입을 반환하는 함수를 사용하는지에 대하여.
    *  >> 순환 종속성 문제 때문에.
