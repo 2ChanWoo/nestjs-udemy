@@ -17,6 +17,9 @@ export class ReportDto {
   model: string;
   @Expose()
   mileage: number;
+  @Expose()
+  approved: boolean;
+
   @Transform(({ obj }) => obj.user.id) // 응답에 있던 user instance에서 id만 뽑아서 userId로 대체하여 응답.
   @Expose()
   userId: number;
