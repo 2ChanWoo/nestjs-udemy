@@ -2,13 +2,13 @@ POST http://localhost:3000/reports
 content-type: application/json
 
 {
-    "make": "hyundai",
-    "model": "sonata",
-    "year": 2010,
-    "mileage": 10000,
+    "make": "ford",
+    "model": "mustang",
+    "year": 1980,
+    "mileage": 50000,
     "lng": 0,
     "lat": 0,
-    "price": 50000
+    "price": 10000
 }
 
 
@@ -21,5 +21,5 @@ content-type: application/json
 }
 
 ### Get an estimate for an existing vehicle
-GET  http://localhost:3000/reports?make=hyundai&model=sonata&lng=0&lat=0&mileage=10000&year=2010
+GET  http://localhost:3000/reports?make=ford&model=mustang&lng=0&lat=0&mileage=50000&year=1980
 content-type: application/json

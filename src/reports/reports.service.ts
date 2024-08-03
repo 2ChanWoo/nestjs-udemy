@@ -22,9 +22,10 @@ export class ReportsService {
       .andWhere('lng - :lng BETWEEN -5 AND 5', { lng: estimateDto.lng })
       .andWhere('lat - :lat BETWEEN -5 AND 5', { lat: estimateDto.lat })
       .andWhere('year - :year BETWEEN -3 AND 3', { year: estimateDto.year })
+      .andWhere('approved IS TRUE')
       .orderBy('ABS(mileage - :mileage)')
       .setParameters({ mileage: estimateDto.mileage })
-      .limit(3)
+      .limit(3) //* select('AVG(price)', 'price') 넣으면 이거 적용 안되는데(밑에 결과도 하나).. 강의에서는 일단 진행함.
       .getRawOne();
   }
 
