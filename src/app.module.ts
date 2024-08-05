@@ -22,22 +22,23 @@ const cookieSession = require('cookie-session');
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
-        console.log(
-          `\nRunning in 🌈 🌈 🌈 ${process.env.NODE_ENV} 🌈 🌈 🌈 mode ! ! ! !\n`,
-        );
-        //💎❗️🦄🔥🚀🆘🚧🌈 ctl + cmd + spacebar
-        return {
-          type: 'sqlite',
-          database: config.get<string>('DB_NAME'),
-          synchronize: true,
-          entities: [User, Report],
-          logging: true,
-        };
-      },
-    }),
+    TypeOrmModule.forRoot(),
+    // TypeOrmModule.forRootAsync({
+    //   inject: [ConfigService],
+    //   useFactory: (config: ConfigService) => {
+    //     console.log(
+    //       `\nRunning in 🌈 🌈 🌈 ${process.env.NODE_ENV} 🌈 🌈 🌈 mode ! ! ! !\n`,
+    //     );
+    //     //💎❗️🦄🔥🚀🆘🚧🌈 ctl + cmd + spacebar
+    //     return {
+    //       type: 'sqlite',
+    //       database: config.get<string>('DB_NAME'),
+    //       synchronize: true,
+    //       entities: [User, Report],
+    //       logging: true,
+    //     };
+    //   },
+    // }),
     // TypeOrmModule.forRoot({
     //   type: 'sqlite',
     //   database: process.env.NODE_ENV === 'test' ? 'test.sqlite' : 'db.sqlite',
