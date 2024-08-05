@@ -8,7 +8,6 @@ import { ReportsModule } from './reports/reports.module';
 import { User } from './users/user.entity';
 import { Report } from './reports/report.entity';
 import { APP_PIPE } from '@nestjs/core';
-const dbConfig = require('../ormconfig.js');
 const cookieSession = require('cookie-session');
 //* ㄴ> cookie session이 최신식 import에서는 내부적인 동작 오류가 있다?
 
@@ -23,23 +22,22 @@ const cookieSession = require('cookie-session');
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
-    TypeOrmModule.forRoot(dbConfig),
-    // TypeOrmModule.forRootAsync({
-    //   inject: [ConfigService],
-    //   useFactory: (config: ConfigService) => {
-    //     console.log(
-    //       `\nRunning in 🌈 🌈 🌈 ${process.env.NODE_ENV} 🌈 🌈 🌈 mode ! ! ! !\n`,
-    //     );
-    //     //💎❗️🦄🔥🚀🆘🚧🌈 ctl + cmd + spacebar
-    //     return {
-    //       type: 'sqlite',
-    //       database: config.get<string>('DB_NAME'),
-    //       synchronize: true,
-    //       entities: [User, Report],
-    //       logging: true,
-    //     };
-    //   },
-    // }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        console.log(
+          `\nRunning in 🌈 🌈 🌈 ${process.env.NODE_ENV} 🌈 🌈 🌈 mode ! ! ! !\n`,
+        );
+        //💎❗️🦄🔥🚀🆘🚧🌈 ctl + cmd + spacebar
+        return {
+          type: 'sqlite',
+          database: config.get<string>('DB_NAME'),
+          synchronize: true,
+          entities: [User, Report],
+          logging: true,
+        };
+      },
+    }),
     // TypeOrmModule.forRoot({
     //   type: 'sqlite',
     //   database: process.env.NODE_ENV === 'test' ? 'test.sqlite' : 'db.sqlite',
