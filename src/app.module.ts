@@ -6,8 +6,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ReportsModule } from './reports/reports.module';
 import { APP_PIPE } from '@nestjs/core';
+import * as dbConfig from '../ormconfig';
 const cookieSession = require('cookie-session');
-const dbConfig = require('../ormconfig');
 //* ㄴ> cookie session이 최신식 import에서는 내부적인 동작 오류가 있다?
 
 // import * as session from 'express-session'; //! 왜 이건 돼고
