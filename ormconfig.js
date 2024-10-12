@@ -1,4 +1,4 @@
-var dbConfig = {
+const dbConfig = {
   synchronize: false,
 };
 
