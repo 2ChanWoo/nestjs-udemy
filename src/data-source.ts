@@ -24,7 +24,15 @@ switch (process.env.NODE_ENV) {
     });
     break;
   case 'prod':
-    Object.assign(dbConfig, {});
+    Object.assign(dbConfig, {
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      entities: ['**/*.entity.ts'],
+      migrationsRun: true,
+      ssl: {
+        rejectUnauthorized: true, //? 인증(ssl)되지 않은 클라이언트(여기서는 서버를 말함)와 DB서버 의 연결을 차단.
+      },
+    });
     break;
   default:
     throw new Error('Unknown environment');
