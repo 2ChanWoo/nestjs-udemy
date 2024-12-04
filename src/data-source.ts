@@ -12,6 +12,7 @@ switch (process.env.NODE_ENV) {
       type: 'sqlite',
       database: 'db.sqlite',
       entities: ['**/*.entity.js'],
+      //? entities: ['**/*.entity.ts'] 로 변경할 시, migration명령어는 동작하는데, start:dev는 엔티티파일 문법 오류 발생함..
     });
     break;
   case 'test':
