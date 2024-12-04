@@ -4,7 +4,7 @@ const dbConfig = {
   synchronize: false,
   entities: ['**/*.entity.ts'],
   migrations: [__dirname + '/migrations/*.ts'],
-};
+} as DataSourceOptions; // as 요거 불안정 문법
 
 switch (process.env.NODE_ENV) {
   case 'dev':
@@ -20,6 +20,7 @@ switch (process.env.NODE_ENV) {
       type: 'sqlite',
       database: 'db.sqlite',
       entities: ['**/*.entity.ts'],
+      migrationsRun: true,
     });
     break;
   case 'prod':
