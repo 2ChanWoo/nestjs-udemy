@@ -24,3 +24,5 @@ export class CurrentUserInterceptor implements NestInterceptor {
     return next.handle();
   }
 }
+
+//! Guard에서 currentUser을 사용할 수 있도록 middleware로 변경함.
